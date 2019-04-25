@@ -33,7 +33,7 @@ std::wstring dump_histogram(const iterator_t &begin, const iterator_t &end) {
 }
 
 int main() {
-  std::wcout << example.size() << " entries\n"
-             << dump_histogram(std::cbegin(example), std::cend(example))
-             << '\n';
+
+  std::wcout << dump_histogram(std::cbegin(example), std::cend(example)) << '\n'
+             << example.size() << " entries\n";
 }
