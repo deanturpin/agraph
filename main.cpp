@@ -12,17 +12,20 @@
 using iterator_t = std::vector<double>::const_iterator;
 std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
 
-  // Calculate max bin so we can scale the output
-  const double max_bin{*std::max_element(begin, end)};
-
-  // Max width of a bar
-  const size_t max_bar_length = 70;
-
   std::ostringstream out;
-  std::for_each(begin, end, [&](const auto &bin) {
-    out << std::string(1 + std::rint(max_bar_length * bin / max_bin), '_')
-        << '\n';
-  });
+  if (std::distance(begin, end) > 0) {
+
+    // Calculate max bin so we can scale the output
+    const double max_bin{*std::max_element(begin, end)};
+
+    // Max width of a bar
+    const size_t max_bar_length = 70;
+
+    std::for_each(begin, end, [&](const auto &bin) {
+      out << std::string(1 + std::rint(max_bar_length * bin / max_bin), '_')
+          << '\n';
+    });
+  }
 
   return out.str();
 }
@@ -32,9 +35,11 @@ int main() {
 
   std::cout << "hello\n";
 
-  while (std::cin.good())
-    if (double val; std::cin >> val)
-      std::cout << val << '\n';
+  // Read all the values
+  const std::vector<double> bins{std::istream_iterator<double>(std::cin), {}};
+
+  // Report
+  std::cout << dump_histogram(std::cbegin(bins), std::cend(bins)) << '\n';
 
   std::cout << "goodbye\n";
 }
