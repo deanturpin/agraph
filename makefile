@@ -3,7 +3,7 @@ CXX = g++-8
 FLAGS = --std=c++2a --all-warnings --extra-warnings -Wno-address \
 	-Werror -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
 
-all: tmp tmp/main.o noise
+all: tmp tmp/main.o install
 
 tmp/%.o: %.cpp
 	$(CXX) $(FLAGS) -o $@ $<
@@ -17,3 +17,5 @@ clean:
 noise:
 	tmp/main.o < input.csv
 
+install:
+	cp tmp/main.o /usr/bin/agraph
