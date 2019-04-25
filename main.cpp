@@ -37,9 +37,18 @@ int main() {
          "Two copies of the same iterator should return empty string");
   assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
 
-  // Read all the values
-  const std::vector<double> bins{std::istream_iterator<double>(std::cin), {}};
+  // Read input one line at a time, dump histogram if we hit a blank line
+  std::string line;
+  std::vector<double> frame;
+  while (std::getline(std::cin, line)) {
 
-  // Report
-  std::cout << dump_histogram(std::cbegin(bins), std::cend(bins)) << '\n';
+    if (line.empty()) {
+      std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
+      frame.clear();
+    } else
+      frame.push_back(std::stod(line));
+  }
+
+  if (frame.size())
+    std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
 }
