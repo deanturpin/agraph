@@ -1,11 +1,11 @@
 #include "main.h"
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <iterator>
-#include <cassert>
-#include <string>
 #include <sstream>
+#include <string>
 #include <vector>
 
 // Create text representation of basic histogram
@@ -20,16 +20,21 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
 
   std::ostringstream out;
   std::for_each(begin, end, [&](const auto &bin) {
-    out << std::string(1 + std::rint(max_bar_length * bin / max_bin), '_') << '\n';
+    out << std::string(1 + std::rint(max_bar_length * bin / max_bin), '_')
+        << '\n';
   });
 
   return out.str();
 }
 
 int main() {
-const std::string status{std::to_string(input.size())};
-  std::cout << dump_histogram(std::cbegin(input), std::cend(input)) << '\n'
-             << status << '\n';
+  assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
 
-assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
+  std::cout << "hello\n";
+
+  while (std::cin.good())
+    if (double val; std::cin >> val)
+      std::cout << val << '\n';
+
+  std::cout << "goodbye\n";
 }

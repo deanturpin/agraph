@@ -18,5 +18,5 @@ clean:
 	rm -rf tmp
 
 noise:
-	tmp/agraph
+	tmp/agraph < input.csv
 
