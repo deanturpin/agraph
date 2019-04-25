@@ -1,3 +1,9 @@
+Candidates
+- askii
+- asqii
+- ascii
+- graphscii
+
 ```bash
 for v in {1..40}; do echo $v; done | tmp/agraph
 ___
