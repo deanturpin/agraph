@@ -32,11 +32,12 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
 
 void unit_test() {
   const std::vector<double> t1{};
-  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) == "" && "Histogram of empty container is empty string");
+  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) == "" &&
+         "Histogram of empty container is empty string");
 
   const std::vector<double> t2{1, 2, 3};
   assert(dump_histogram(std::cbegin(t2), std::cend(t2)) ==
-R"(________________________
+             R"(________________________
 ________________________________________________
 _______________________________________________________________________
 )" && "Histogram of populated container is known string");
@@ -44,7 +45,7 @@ _______________________________________________________________________
 
 int main(int argc, char **argv) {
 
-	unit_test();
+  unit_test();
 
   // Read file if there is one, otherwise use stdin
   std::ifstream file{argv[1]};
@@ -55,19 +56,19 @@ int main(int argc, char **argv) {
   std::vector<double> frame;
   uint64_t frames{};
   while (std::getline(in, line)) {
-    
+
     std::istringstream ss(line);
 
     double v{};
     if (ss >> v)
       frame.push_back(v);
-      
-      else {
+
+    else {
       std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
       std::cout << frames << " frames\n";
       ++frames;
       frame.clear();
-    } 
+    }
   }
 
   if (frame.size()) {
