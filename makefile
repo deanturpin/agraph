@@ -4,7 +4,7 @@ CX = clang-7
 FLAGS = --std=c++2a --all-warnings --extra-warnings -Wno-address \
 	-Werror -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
 
-all: tmp tmp/aski install noise
+all: tmp tmp/aski noise
 
 tmp/%.o: %.cpp
 	$(CXX) $(FLAGS) -o $@ $<

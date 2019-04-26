@@ -45,7 +45,7 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
       for (size_t h = 0; h < bar_length; ++h)
         screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] =
-            h == bar_length - 1 ? '|' : '|';
+            h == bar_length - 1 ? '-' : '!';
     }
   }
 
