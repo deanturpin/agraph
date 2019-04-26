@@ -42,7 +42,7 @@ std::string screen_buffer_to_string() {
 
   std::ostringstream out;
   for (const auto &raster : screen_buffer)
-    out << '|' << raster << '|' << '\n';
+    out << raster << '\n';
 
   return out.str();
 }
@@ -65,11 +65,12 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
       const size_t bar_length = std::rint(max_bar_length * *i / max_bin);
 
       for (size_t h = 0; h < bar_length; ++h)
-        screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] = '|';
+        screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] =
+            h == bar_length - 1 ? '-' : '|';
     }
   }
 
-  std::cout << screen_buffer_to_string() << '\n';
+  std::cout << screen_buffer_to_string() << std::distance(begin, end) << '\n';
 }
 
 // void unit_test() {
