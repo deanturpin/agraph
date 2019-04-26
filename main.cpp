@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <sstream>
@@ -30,15 +31,16 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
   return out.str();
 }
 
-int main() {
+int main(int argc, char **argv) {
 
   // Unit test me
   assert(dump_histogram(std::cbegin(input), std::cbegin(input)) == "" &&
          "Two copies of the same iterator should return empty string");
   assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
 
-  // Read file if there is one
-  auto &in = std::cin;
+  // Read file if there is one, otherwise use stdin
+  std::ifstream file{argv[1]};
+  auto &in = argc > 1 ? file : std::cin;
 
   // Read input one line at a time, dump histogram if we hit a blank line
   std::string line;
