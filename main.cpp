@@ -31,12 +31,21 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
   return out.str();
 }
 
-int main(int argc, char **argv) {
-
-  // Unit test me
+void unit_test() {
   assert(dump_histogram(std::cbegin(input), std::cbegin(input)) == "" &&
          "Two copies of the same iterator should return empty string");
-  assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
+
+  const std::vector<double> t1{1, 2, 3};
+  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) ==
+R"(________________________
+________________________________________________
+_______________________________________________________________________
+)");
+}
+
+int main(int argc, char **argv) {
+
+	unit_test();
 
   // Read file if there is one, otherwise use stdin
   std::ifstream file{argv[1]};
