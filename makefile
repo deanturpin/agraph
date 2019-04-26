@@ -7,13 +7,10 @@ FLAGS = --std=c++2a --all-warnings --extra-warnings -Wno-address \
 all: tmp tmp/aski noise
 
 tmp/%.o: %.cpp
-	$(CXX) $(FLAGS) -o $@ $<
+	$(CXX) $(FLAGS) -c -o $@ $<
 
-tmp/%.o: %.c
-	$(CX) -c -o $@ $<
-
-tmp/aski: main.o
-	$(CXX) -o $@ $^ # -lncurses
+tmp/aski: tmp/main.o
+	$(CXX) -o $@ $^
 
 tmp:
 	mkdir $@
