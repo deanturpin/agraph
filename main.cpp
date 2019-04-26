@@ -8,40 +8,15 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> screen_buffer{
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-    "                                                            ",
-};
+// Initialise screen buffer
+const std::string _default_raster(87, ' ');
+const std::vector<std::string> _default_screen_buffer(43, _default_raster);
 
 // Convert screen buffer into something that can be printed
-std::string screen_buffer_to_string() {
+std::string screen_buffer_to_string(std::vector<std::string> &buffer) {
 
   std::ostringstream out;
-  for (const auto &raster : screen_buffer)
+  for (const auto &raster : buffer)
     out << raster << '\n';
 
   return out.str();
@@ -51,6 +26,9 @@ std::string screen_buffer_to_string() {
 using iterator_t = std::vector<double>::const_iterator;
 void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
+  // Make a copy of default screen buffer
+  auto screen_buffer = _default_screen_buffer;
+
   if (std::distance(begin, end) > 0) {
 
     // Calculate the largest bin so we can scale the output
@@ -59,6 +37,7 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
     // Max width of a bar
     const size_t max_bar_length = screen_buffer.size();
 
+    // Construct bar for each bin
     for (auto i = begin; i < end; ++i) {
 
       // Calculate the length of this bar given the max in the sample
@@ -66,11 +45,12 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
       for (size_t h = 0; h < bar_length; ++h)
         screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] =
-            h == bar_length - 1 ? '-' : '|';
+            h == bar_length - 1 ? '|' : '|';
     }
   }
 
-  std::cout << screen_buffer_to_string() << std::distance(begin, end) << '\n';
+  std::cout << screen_buffer_to_string(screen_buffer)
+            << std::distance(begin, end) << '\n';
 }
 
 // void unit_test() {
@@ -99,25 +79,15 @@ int main(int argc, char **argv) {
   // Read input one line at a time, dump histogram if we hit a blank line
   std::string line;
   std::vector<double> frame;
-  uint64_t frames{};
   while (std::getline(in, line)) {
 
-    std::istringstream ss(line);
-
-    double v{};
-    if (ss >> v)
-      frame.push_back(v);
-
-    else {
+    if (line.empty() || frame.size() >= _default_raster.size()) {
       draw_histogram(std::cbegin(frame), std::cend(frame));
-      // std::cout << frames << " frames\n";
-      // ++frames;
       frame.clear();
-    }
+    } else
+      frame.push_back(std::stod(line));
   }
 
-  if (frame.size()) // {
+  if (frame.size())
     draw_histogram(std::cbegin(frame), std::cend(frame));
-  // std::cout << frames << " frames (end)\n";
-  // }
 }
