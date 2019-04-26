@@ -15,7 +15,7 @@ clean:
 	rm -rf tmp
 
 noise:
-	$(shell tmp/main.o \<\<\< $$'1\n2\n3\n4\n5\n\n6\n7\n8\n9\n')
+	echo 10 | tmp/main.o
 
 install:
 	cp tmp/main.o /usr/bin/agraph
