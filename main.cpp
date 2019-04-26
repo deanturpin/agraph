@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
       draw_histogram(std::cbegin(frame), std::cend(frame));
       frame.clear();
     } else
-      frame.push_back(std::stod(line));
+      frame.push_back(std::abs(std::stod(line)));
   }
 
   if (frame.size())
