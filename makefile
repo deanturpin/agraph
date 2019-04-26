@@ -1,10 +1,10 @@
 CXX = clang++-7
-CX = clang++-7
+CX = clang-7
 
 FLAGS = --std=c++2a --all-warnings --extra-warnings -Wno-address \
 	-Werror -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
 
-all: tmp tmp/aski # noise
+all: tmp tmp/aski noise
 
 tmp/%.o: %.cpp
 	$(CXX) $(FLAGS) -o $@ $<
@@ -21,8 +21,8 @@ tmp:
 clean:
 	rm -rf tmp
 
-# noise:
-# 	echo 10 | tmp/main.o
+noise: tmp/aski
+	echo 10 | tmp/aski
 
 # install:
 # 	cp tmp/main.o /usr/bin/agraph
