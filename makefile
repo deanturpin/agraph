@@ -22,7 +22,7 @@ clean:
 	rm -rf tmp
 
 noise: tmp/aski
-	echo 10 | tmp/aski
+	./generate.sh | tmp/aski
 
 # install:
 # 	cp tmp/main.o /usr/bin/agraph

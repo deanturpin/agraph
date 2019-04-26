@@ -53,7 +53,7 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
   if (std::distance(begin, end) > 0) {
 
-    // Calculate max bin so we can scale the output
+    // Calculate the largest bin so we can scale the output
     const double max_bin{*std::max_element(begin, end)};
 
     // Max width of a bar
