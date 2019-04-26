@@ -23,6 +23,18 @@ std::vector<std::string> screen_buffer{
     "                                                            ",
     "                                                            ",
     "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
 };
 
 // Convert screen buffer into something that can be printed
@@ -53,7 +65,7 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
       const size_t bar_length = std::rint(max_bar_length * *i / max_bin);
 
       for (size_t h = 0; h < bar_length; ++h)
-        screen_buffer[h][std::distance(begin, i)] = '|';
+        screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] = '|';
     }
   }
 
