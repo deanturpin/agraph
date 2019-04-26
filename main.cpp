@@ -1,4 +1,3 @@
-#include "main.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -32,11 +31,11 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
 }
 
 void unit_test() {
-  assert(dump_histogram(std::cbegin(input), std::cbegin(input)) == "" &&
-         "Two copies of the same iterator should return empty string");
+  const std::vector<double> t1{};
+  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) == "");
 
-  const std::vector<double> t1{1, 2, 3};
-  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) ==
+  const std::vector<double> t2{1, 2, 3};
+  assert(dump_histogram(std::cbegin(t2), std::cend(t2)) ==
 R"(________________________
 ________________________________________________
 _______________________________________________________________________
