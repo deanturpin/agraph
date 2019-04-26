@@ -37,18 +37,26 @@ int main() {
          "Two copies of the same iterator should return empty string");
   assert(dump_histogram(std::cbegin(input), std::cend(input)) == output);
 
+  // Read file if there is one
+  auto &in = std::cin;
+
   // Read input one line at a time, dump histogram if we hit a blank line
   std::string line;
   std::vector<double> frame;
-  while (std::getline(std::cin, line)) {
+  uint64_t frames{};
+  while (std::getline(in, line)) {
 
     if (line.empty()) {
       std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
+      std::cout << frames << " frames\n";
+      ++frames;
       frame.clear();
     } else
       frame.push_back(std::stod(line));
   }
 
-  if (frame.size())
+  if (frame.size()) {
     std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
+    std::cout << frames << " frames (end)\n";
+  }
 }
