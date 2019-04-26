@@ -32,14 +32,14 @@ std::string dump_histogram(const iterator_t &begin, const iterator_t &end) {
 
 void unit_test() {
   const std::vector<double> t1{};
-  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) == "");
+  assert(dump_histogram(std::cbegin(t1), std::cend(t1)) == "" && "Histogram of empty container is empty string");
 
   const std::vector<double> t2{1, 2, 3};
   assert(dump_histogram(std::cbegin(t2), std::cend(t2)) ==
 R"(________________________
 ________________________________________________
 _______________________________________________________________________
-)");
+)" && "Histogram of populated container is known string");
 }
 
 int main(int argc, char **argv) {

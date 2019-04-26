@@ -1,4 +1,4 @@
-CXX = g++-8
+CXX = clang++-7
 
 FLAGS = --std=c++2a --all-warnings --extra-warnings -Wno-address \
 	-Werror -Wshadow -Wfloat-equal -Weffc++ -Wdelete-non-virtual-dtor -O1
