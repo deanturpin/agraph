@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
   uint64_t frames{};
   while (std::getline(in, line)) {
     
-    std::stringstream ss(line);
+    std::istringstream ss(line);
 
     double v{};
     if (ss >> v)
