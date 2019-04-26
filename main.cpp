@@ -55,14 +55,19 @@ int main(int argc, char **argv) {
   std::vector<double> frame;
   uint64_t frames{};
   while (std::getline(in, line)) {
+    
+    std::stringstream ss(line);
 
-    if (line.empty()) {
+    double v{};
+    if (ss >> v)
+      frame.push_back(v);
+      
+      else {
       std::cout << dump_histogram(std::cbegin(frame), std::cend(frame)) << '\n';
       std::cout << frames << " frames\n";
       ++frames;
       frame.clear();
-    } else
-      frame.push_back(std::stod(line));
+    } 
   }
 
   if (frame.size()) {

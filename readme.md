@@ -5,7 +5,7 @@ Candidates
 - graphscii
 
 ```bash
-for v in {1..40}; do echo $v; done | tmp/agraph
+for v in {1..40}; do echo $v; done | tmp/main.o
 ___
 _____
 ______
