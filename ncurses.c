@@ -5,7 +5,10 @@ double _array[] = {1,2 , 3, 4};
 
 size_t get_buffer(double * arr){
     usleep(100000);
-  arr = &_array[0];
+
+    for (size_t i = 0; i < 4; ++i)
+      arr[i] = _array[i];
+
   return 4;
 }
 

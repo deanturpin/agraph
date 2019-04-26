@@ -13,7 +13,7 @@ tmp/%.o: %.c
 	$(CX) -c -o $@ $<
 
 tmp/aski: main.o
-	$(CX) -o $@ $^ -lncurses
+	$(CXX) -o $@ $^ # -lncurses
 
 tmp:
 	mkdir $@
