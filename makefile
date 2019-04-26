@@ -19,3 +19,5 @@ noise:
 
 install:
 	cp tmp/main.o /usr/bin/agraph
+
+# clang-7 -lcurses -o tmp/aski aski.c
