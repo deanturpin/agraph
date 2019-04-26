@@ -22,12 +22,41 @@ std::string screen_buffer_to_string(std::vector<std::string> &buffer) {
   return out.str();
 }
 
-// Create text representation of basic histogram
 using iterator_t = std::vector<double>::const_iterator;
-void draw_histogram(const iterator_t &begin, const iterator_t &end) {
+
+// Scale bins
+std::vector<double> scale_histogram(const iterator_t &begin,
+                                    const iterator_t &end) {
+
+  std::vector<double> scaled;
+
+  std::for_each(begin, end, [&, n = 0](const auto &s) mutable {
+    size_t index =
+        std::rint(_default_raster.size() * n / std::distance(begin, end));
+
+    // If it's a new bin create it
+    if (index >= scaled.size())
+      scaled.emplace_back();
+
+    // Sum all the values that match a bin
+    scaled.back() += s;
+
+    ++n;
+  });
+
+  return scaled;
+}
+
+// Create text representation of basic histogram
+void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
 
   // Make a copy of default screen buffer
   auto screen_buffer = _default_screen_buffer;
+
+  const auto scaled = scale_histogram(_begin, _end);
+
+  const auto begin = std::cbegin(scaled);
+  const auto end   = std::cend(scaled);
 
   if (std::distance(begin, end) > 0) {
 
@@ -45,7 +74,7 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
       for (size_t h = 0; h < bar_length; ++h)
         screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] =
-            h == bar_length - 1 ? '-' : '!';
+            h == bar_length - 1 ? '|' : '|';
     }
   }
 
@@ -81,7 +110,7 @@ int main(int argc, char **argv) {
   std::vector<double> frame;
   while (std::getline(in, line)) {
 
-    if (line.empty() || frame.size() >= _default_raster.size()) {
+    if (line.empty() || frame.size() >= 1024) {
       draw_histogram(std::cbegin(frame), std::cend(frame));
       frame.clear();
     } else
