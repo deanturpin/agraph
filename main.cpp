@@ -9,26 +9,26 @@
 #include <vector>
 
 std::vector<std::string> screen_buffer{
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
-    "............................................................",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
+    "                                                            ",
 };
 
+// Convert screen buffer into something that can be printed
 std::string screen_buffer_to_string() {
 
   std::ostringstream out;
-
   for (const auto &raster : screen_buffer)
     out << '|' << raster << '|' << '\n';
 
@@ -39,7 +39,6 @@ std::string screen_buffer_to_string() {
 using iterator_t = std::vector<double>::const_iterator;
 void draw_histogram(const iterator_t &begin, const iterator_t &end) {
 
-  std::ostringstream out;
   if (std::distance(begin, end) > 0) {
 
     // Calculate max bin so we can scale the output
@@ -48,13 +47,17 @@ void draw_histogram(const iterator_t &begin, const iterator_t &end) {
     // Max width of a bar
     const size_t max_bar_length = screen_buffer.size();
 
-    std::for_each(begin, end, [&](const auto &bin) {
-      out << std::string(1 + std::rint(max_bar_length * bin / max_bin), '_')
-          << '\n';
-    });
+    for (auto i = begin; i < end; ++i) {
+
+      // Calculate the length of this bar given the max in the sample
+      const size_t bar_length = std::rint(max_bar_length * *i / max_bin);
+
+      for (size_t h = 0; h < bar_length; ++h)
+        screen_buffer[h][std::distance(begin, i)] = '|';
+    }
   }
 
-  std::cout << screen_buffer_to_string() << '\n'; // out.str();
+  std::cout << screen_buffer_to_string() << '\n';
 }
 
 // void unit_test() {
