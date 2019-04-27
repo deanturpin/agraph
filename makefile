@@ -9,7 +9,7 @@ all: tmp tmp/aski noise
 tmp/%.o: %.cpp
 	$(CXX) $(FLAGS) -c -o $@ $<
 
-tmp/aski: tmp/main.o
+tmp/aski: tmp/main.o tmp/draw.o
 	$(CXX) -o $@ $^
 
 tmp:
