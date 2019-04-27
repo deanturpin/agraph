@@ -1,8 +1,4 @@
-Candidates
-- askii
-- asqii
-- ascii
-- graphscii
+#ASKI
 
 ```bash
 for v in {1..400}; do echo $RANDOM; done | tmp/aski 
