@@ -47,8 +47,21 @@ std::vector<double> scale_histogram(const iterator_t &begin,
   return scaled;
 }
 
+int unit_test() {
+
+  const std::vector<double> t1(90);
+  assert(scale_histogram(std::cbegin(t1), std::cend(t1)).size() ==
+             _default_raster.size() &&
+         "Scale function returns container of screen buffer width");
+
+  return 0;
+}
+
 // Create text representation of basic histogram
 void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
+
+  // Run unit test on first invocation
+  [[maybe_unused]] const static auto unit = unit_test();
 
   // Make a copy of default screen buffer
   auto screen_buffer = _default_screen_buffer;
@@ -79,27 +92,14 @@ void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
   }
 
   std::cout << screen_buffer_to_string(screen_buffer)
-            << std::distance(begin, end) << '\n';
+            << std::distance(_begin, _end) << '\n';
 }
-
-// void unit_test() {
-//   const std::vector<double> t1{};
-//   assert(draw_histogram(std::cbegin(t1), std::cend(t1)) == "" &&
-//          "Histogram of empty container is empty string");
-//
-//   const std::vector<double> t2{1, 2, 3};
-//   assert(draw_histogram(std::cbegin(t2), std::cend(t2)) ==
-//              R"(________________________
-// ________________________________________________
-// _______________________________________________________________________
-// )" && "Histogram of populated container is known string");
-// }
 
 /* -------------------------------------- draw module ------ */
 
 int main(int argc, char **argv) {
 
-  // unit_test();
+  unit_test();
 
   // Read file if there is one, otherwise use stdin
   std::ifstream file{argv[1]};
