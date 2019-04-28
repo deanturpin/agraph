@@ -1,4 +1,4 @@
-#ASKI
+# AGRAPH
 
 ```bash
 for v in {1..400}; do echo $RANDOM; done | tmp/aski 
