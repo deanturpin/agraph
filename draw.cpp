@@ -7,13 +7,13 @@
 #include <string>
 
 // Initialise screen buffer
-const std::string _default_raster(87, ' ');
-const std::vector<std::string> _default_screen_buffer(43, _default_raster);
+const std::wstring _default_raster(87, ' ');
+const std::vector<std::wstring> _default_screen_buffer(43, _default_raster);
 
 // Convert screen buffer into something that can be printed
-std::string screen_buffer_to_string(std::vector<std::string> &buffer) {
+std::wstring screen_buffer_to_string(std::vector<std::wstring> &buffer) {
 
-  std::ostringstream out;
+  std::wstringstream out;
   for (const auto &raster : buffer)
     out << raster << '\n';
 
@@ -82,11 +82,10 @@ void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
       const size_t bar_length = std::rint(max_bar_length * *i / max_bin);
 
       for (size_t h = 0; h < bar_length; ++h)
-        screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] =
-            h == bar_length - 1 ? '|' : '|';
+        screen_buffer[max_bar_length - 1 - h][std::distance(begin, i)] = '|';
     }
   }
 
-  std::cout << screen_buffer_to_string(screen_buffer)
-            << std::distance(_begin, _end) << '\n';
+  std::wcout << screen_buffer_to_string(screen_buffer)
+             << std::distance(_begin, _end) << '\n';
 }
