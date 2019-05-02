@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <deque>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -90,4 +91,44 @@ void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
 
   std::wcout << screen_buffer_to_string(screen_buffer)
              << std::distance(_begin, _end) << '\n';
+}
+
+void plot(const double& v) {
+  
+  // Initialise screen buffer on first call
+  auto screen_buffer = _default_screen_buffer;
+  
+  static std::deque<double> plots;
+  
+  // Store recent plot
+  plots.push_back(v);
+  
+  // Drop the oldest plot if buffer is screen width
+  if (plots.size() > _default_raster.size())
+    plots.pop_front();
+  
+  // Update display limits
+  static double min{0}, max{0};
+  min = std::min(min, v);
+  max = std::max(max, v);
+  const auto range = max - min;
+  // ++min;
+  --max;
+
+    // Max width of a bar
+    const size_t max_bar_length = screen_buffer.size();
+  
+  for (size_t i = 0; i < plots.size(); ++i) {
+          const size_t bar_length = std::rint(max_bar_length * (plots.at(i) - min) / range);
+
+    for (size_t h = 0; h < bar_length; ++h)
+      screen_buffer[max_bar_length - 1 - h][_default_raster.size() - 1 - i] = '|';
+    }
+    
+  std::cout 
+  << min << ' '
+  << max << ' '
+  << range << '\n';
+  
+  // std::wcout << screen_buffer_to_string(screen_buffer) << '\n';
 }

@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
   auto &in = argc > 1 ? file : std::cin;
 
   // Create container for incoming values
-  std::vector<double> frame;
+  // std::vector<double> frame;
 
   // Read values until we have a full frame
   // const size_t max_frame{1024};
@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
     double v{};
     if (ss >> v)
-      frame.push_back(v);
+      plot(v);
 
     // if (in >> v) {
     //   std::cout << "store " << v << "\n";
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     //   std::cout << "skipping\n";
   }
 
-  std::cout << frame.size() << " samples\n";
+  // std::cout << frame.size() << " samples\n";
 
   // If there's anything left then draw it
   // if (!frame.empty())
