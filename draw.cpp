@@ -13,12 +13,6 @@ void plot(const double &v) {
   max              = std::max(max, v);
   const auto range = max - min;
 
-  // On first call set smooth scrolling
-  [[maybe_unused]] static const auto _init = [] {
-    std::wcout << "\033[?4h";
-    return 0u;
-  }();
-
   // On first call get terminal width from environment or use default
   const static size_t max_bar_length = [] {
     if (const char *cols = std::getenv("COLUMNS"))
