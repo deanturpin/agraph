@@ -19,13 +19,16 @@ int main(int argc, char **argv) {
 
   std::string line;
   while (std::getline(in, line)) {
-    // std::cout << line << '\n';
 
-    std::stringstream ss(line);
+    std::stringstream ss;
+    ss.precision(10);
+    ss << line;
 
     double v{};
     if (ss >> v)
       plot(v);
+    else
+      std::cout << "skip\n";
 
     // if (in >> v) {
     //   std::cout << "store " << v << "\n";
