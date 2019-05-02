@@ -21,34 +21,34 @@ std::string screen_buffer_to_string(std::vector<std::string> &buffer) {
 }
 
 // Scale bins
-std::vector<double> scale_histogram(const iterator_t &begin,
-                                    const iterator_t &end) {
-
-  std::vector<double> scaled;
-
-  std::for_each(begin, end, [&, n = 0](const auto &s) mutable {
-    size_t index =
-        std::rint(_default_raster.size() * n / std::distance(begin, end));
-
-    // If it's a new bin create it
-    if (index >= scaled.size())
-      scaled.emplace_back();
-
-    // Sum all the values that match a bin
-    scaled.back() += s;
-
-    ++n;
-  });
-
-  return scaled;
-}
+// std::vector<double> scale_histogram(const iterator_t &begin,
+//                                     const iterator_t &end) {
+//
+//   std::vector<double> scaled;
+//
+//   std::for_each(begin, end, [&, n = 0](const auto &s) mutable {
+//     size_t index =
+//         std::rint(_default_raster.size() * n / std::distance(begin, end));
+//
+//     // If it's a new bin create it
+//     if (index >= scaled.size())
+//       scaled.emplace_back();
+//
+//     // Sum all the values that match a bin
+//     scaled.back() += s;
+//
+//     ++n;
+//   });
+//
+//   return scaled;
+// }
 
 int unit_test() {
 
   const std::vector<double> t1(90);
-  assert(scale_histogram(std::cbegin(t1), std::cend(t1)).size() ==
-             _default_raster.size() &&
-         "Scale function returns container of screen buffer width");
+  // assert(scale_histogram(std::cbegin(t1), std::cend(t1)).size() ==
+  //            _default_raster.size() &&
+  //        "Scale function returns container of screen buffer width");
 
   return 0;
 }
@@ -62,10 +62,12 @@ void draw_histogram(const iterator_t &_begin, const iterator_t &_end) {
   // Make a copy of default screen buffer
   auto screen_buffer = _default_screen_buffer;
 
-  const auto scaled = scale_histogram(_begin, _end);
+  // const auto scaled = scale_histogram(_begin, _end);
 
-  const auto begin = std::cbegin(scaled);
-  const auto end   = std::cend(scaled);
+  const auto begin = _begin;
+  const auto end   = _end;
+
+  std::cout << std::distance(begin, end) << " samples\n";
 
   if (std::distance(begin, end) > 0) {
 
