@@ -12,7 +12,7 @@ tmp/agraph: tmp/main.o tmp/draw.o
 	$(CXX) -o $@ $^
 
 tmp:
-	mkdir $@
+	mkdir -p $@
 
 clean:
 	rm -rf tmp
