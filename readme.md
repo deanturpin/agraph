@@ -1,5 +1,13 @@
 # AGRAPH
 
+## Examples
+
+Graph the size of TCP packets
+```
+tcpdump -v |& while read line; do [[ $line =~ length\ ([0-9]+) ]] && echo ${BASH_REMATCH[1]}; done| COLUMNS=$COLUMNS agraph
+```
+
+Graph some randome numbers.
 ```bash
 for v in {1..400}; do echo $RANDOM; done | tmp/aski 
                   |                                                                    
