@@ -21,10 +21,11 @@ void plot(const double &v) {
       return 40ul;
   }();
 
-  const size_t bar_length = std::rint(max_bar_length +( max_bar_length * (v - min) / range));
+  const size_t bar_length =
+      std::rint(max_bar_length + (max_bar_length * (v - min) / range));
 
   // Print bar
-  std::wcout << std::wstring(bar_length, ' ') << "|\n";
+  std::wcout << std::wstring(bar_length, ' ') << "#\n";
 
   using namespace std::chrono_literals;
   std::this_thread::sleep_for(10ms);
