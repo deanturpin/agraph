@@ -3,7 +3,7 @@
 ## Examples
 
 Graph the size of TCP packets
-```
+```bash
 tcpdump -v |& while read line; do [[ $line =~ length\ ([0-9]+) ]] && echo ${BASH_REMATCH[1]}; done| COLUMNS=$COLUMNS agraph
 ```
 
